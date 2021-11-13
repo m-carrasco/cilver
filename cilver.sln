@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cilver-lib", "cilver-lib\cilver-lib.csproj", "{097A6735-C51B-442F-A696-CF0DA0AC5961}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cilver-cli", "cilver-cli\cilver-cli.csproj", "{51E5E6E2-F6FA-491E-BA34-A5DB66096C3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unit-test", "unit-test\unit-test.csproj", "{315A3BDE-624F-4AB7-8F66-1F4BDEFB1AD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{097A6735-C51B-442F-A696-CF0DA0AC5961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{097A6735-C51B-442F-A696-CF0DA0AC5961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{097A6735-C51B-442F-A696-CF0DA0AC5961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{097A6735-C51B-442F-A696-CF0DA0AC5961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51E5E6E2-F6FA-491E-BA34-A5DB66096C3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51E5E6E2-F6FA-491E-BA34-A5DB66096C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51E5E6E2-F6FA-491E-BA34-A5DB66096C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51E5E6E2-F6FA-491E-BA34-A5DB66096C3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{315A3BDE-624F-4AB7-8F66-1F4BDEFB1AD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{315A3BDE-624F-4AB7-8F66-1F4BDEFB1AD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{315A3BDE-624F-4AB7-8F66-1F4BDEFB1AD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{315A3BDE-624F-4AB7-8F66-1F4BDEFB1AD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

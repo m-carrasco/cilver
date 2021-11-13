@@ -1,0 +1,74 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+    - name: Calculate version
+      id: gitversion
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+          useConfigFile: true
+          configFilePath: ${{ github.workspace }}/.github/GitVersion.yml
+    - name: Setup Python
+      uses: actions/setup-python@v2.2.2
+    - name: Setup mono
+      run: |
+        sudo apt install gnupg ca-certificates
+        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+        sudo apt update
+        sudo apt-get install mono-devel=6.12.0.122-0xamarin1+ubuntu1804b1
+        sudo apt-get install mono-utils
+    - name: Setup llvm-config and FileCheck
+      run: |
+        sudo apt-get install llvm-10 llvm-10-tools
+        sudo ln -s /usr/bin/llvm-config-10 /usr/bin/llvm-config
+        llvm-config --version
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
+    - name: Setup cmake
+      uses: jwlawson/actions-setup-cmake@v1.9
+      with:
+        cmake-version: '3.21.x'
+    - name: Setup LIT
+      run: |
+        pip install lit
+    - name: Build & unit test
+      run: |
+        dotnet build
+        dotnet test --verbosity normal 
+    # Test the app as it is distributed
+    # This is important because the datalog query executable must be properly distributed
+    # It comes from net-ssa's dependency
+    - name: Pack & install locally
+      run: |
+        dotnet pack cilver.sln --include-symbols --include-source /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }} /p:PackageVersion=${{ steps.gitversion.outputs.NuGetVersionV2 }}
+        mkdir local-installation
+        dotnet tool install --tool-path local-installation --add-source cilver-cli/bin/Debug cilver-cli --version ${{ steps.gitversion.outputs.NuGetVersionV2 }}
+    - name: Integration test
+      run: |
+        mkdir build
+        cd build 
+        cmake .. 
+        lit integration-test -v
+    - name: Generate nuget packages
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      run: |
+        dotnet nuget push cilver-cli/bin/Debug/cilver-cli.${{ steps.gitversion.outputs.NuGetVersionV2 }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
