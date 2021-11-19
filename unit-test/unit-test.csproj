@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\cilver-lib\cilver-lib.csproj" />
+    <ProjectReference Include="..\sharp-lib\sharp-lib.csproj" />
   </ItemGroup>
 
 </Project>

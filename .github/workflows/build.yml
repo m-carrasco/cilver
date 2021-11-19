@@ -59,16 +59,16 @@ jobs:
     # It comes from net-ssa's dependency
     - name: Pack & install locally
       run: |
-        dotnet pack cilver.sln --include-symbols --include-source /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }} /p:PackageVersion=${{ steps.gitversion.outputs.NuGetVersionV2 }}
+        dotnet pack sharp.sln --include-symbols --include-source /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }} /p:PackageVersion=${{ steps.gitversion.outputs.NuGetVersionV2 }}
         mkdir local-installation
-        dotnet tool install --tool-path local-installation --add-source cilver-cli/bin/Debug cilver-cli --version ${{ steps.gitversion.outputs.NuGetVersionV2 }}
+        dotnet tool install --tool-path local-installation --add-source sharp-cli/bin/Debug sharp-cli --version ${{ steps.gitversion.outputs.NuGetVersionV2 }}
     - name: Integration test
       run: |
         mkdir build
         cd build 
         cmake .. 
         lit integration-test -v
-    - name: Generate nuget packages
+    - name: Upload nuget packages
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       run: |
-        dotnet nuget push cilver-cli/bin/Debug/cilver-cli.${{ steps.gitversion.outputs.NuGetVersionV2 }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        dotnet nuget push sharp-cli/bin/Debug/sharp-cli.${{ steps.gitversion.outputs.NuGetVersionV2 }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
