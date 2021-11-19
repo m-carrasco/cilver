@@ -1,14 +1,14 @@
 ARG REPO=mcr.microsoft.com/dotnet/sdk
 FROM $REPO:6.0-focal
 
-COPY . /cilver
+COPY . /sharp
 
-RUN chmod +x /cilver/ci/install-mono.sh && /cilver/ci/install-mono.sh && \
-    chmod +x /cilver/ci/install-cmake.sh && /cilver/ci/install-cmake.sh && \
-    chmod +x /cilver/ci/install-lit.sh && /cilver/ci/install-lit.sh && \
-    chmod +x /cilver/ci/install-llvm.sh && /cilver/ci/install-llvm.sh
+RUN chmod +x /sharp/ci/install-mono.sh && /sharp/ci/install-mono.sh && \
+    chmod +x /sharp/ci/install-cmake.sh && /sharp/ci/install-cmake.sh && \
+    chmod +x /sharp/ci/install-lit.sh && /sharp/ci/install-lit.sh && \
+    chmod +x /sharp/ci/install-llvm.sh && /sharp/ci/install-llvm.sh
 
-RUN cd cilver && \
+RUN cd sharp && \
     dotnet build && \
     dotnet test --verbosity normal && \
     rm -r -f -- build && \

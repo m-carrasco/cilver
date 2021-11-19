@@ -1,4 +1,4 @@
-﻿namespace cilver_lib;
+﻿namespace sharp_lib;
 public class Class1
 {
 

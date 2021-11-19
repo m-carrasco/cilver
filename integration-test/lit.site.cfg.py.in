@@ -1,5 +1,5 @@
-config.cilver_bin_dir = "@CILVER_BIN_DIR@"
-config.cilver_src_dir = "@CILVER_SRC_DIR@"
+config.sharp_bin_dir = "@SHARP_BIN_DIR@"
+config.sharp_src_dir = "@SHARP_SRC_DIR@"
 
 config.my_src_root = r'@CMAKE_SOURCE_DIR@'
 config.my_obj_root = r'@CMAKE_BINARY_DIR@'

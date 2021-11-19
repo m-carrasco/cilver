@@ -15,15 +15,15 @@ config.substitutions.append(('%mcs', config.mcs_bin))
 config.substitutions.append(('%ilasm', config.ilasm_bin))
 config.substitutions.append(('%FileCheck', os.path.join(config.llvm_bin_dir, "FileCheck")))
 
-# This is required for testing the nuget package, which happens in the CI.
+# This is required for testing the nuget package, which is generated in the CI.
 # If the directory is not found, fallback to the output of "dotnet build"
-nuget_tool_installation = os.path.join(config.cilver_src_dir, "local-installation/cilver-cli")
+nuget_tool_installation = os.path.join(config.sharp_src_dir, "local-installation/sharp-cli")
 if os.path.isfile(nuget_tool_installation):
-    cilver_cli_path = nuget_tool_installation
+    sharp_cli_path = nuget_tool_installation
 else:
-    cilver_cli_path = os.path.join(config.cilver_bin_dir, "cilver-cli")
+    sharp_cli_path = os.path.join(config.sharp_bin_dir, "sharp-cli")
 
-config.substitutions.append(('%cilver-cli', cilver_cli_path))
+config.substitutions.append(('%sharp-cli', sharp_cli_path))
 
 # This is useful if a custom dotnet installation is used.
 if os.environ.get('DOTNET_ROOT') is not None:
